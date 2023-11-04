@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Deveel</RootNamespace>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ReadmeFile>../README.md</ReadmeFile>
+  </PropertyGroup>
+</Project>
