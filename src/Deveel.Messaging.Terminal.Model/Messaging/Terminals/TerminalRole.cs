@@ -12,19 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Deveel.Messaging.Channels {
+namespace Deveel.Messaging.Terminals {
 	/// <summary>
-	/// A type of credentials that represents an API key.
+	/// Enumerates the type of roles that a service
+	/// terminal can play.
 	/// </summary>
-	/// <remarks>
-	/// The location of the API key is provider-specific:
-	/// it is up to the implementation of the provider to
-	/// use the key in the proper way.
-	/// </remarks>
-	public interface IApiKeyChannelCredentials : IChannelCredentials {
+	[Flags]
+	public enum TerminalRole {
 		/// <summary>
-		/// Gets the API key used to authenticate the channel.
+		/// The terminal is not capable of sending or 
+		/// receiving messages
 		/// </summary>
-		string ApiKey { get; }
+		None = 0,
+
+		/// <summary>
+		/// the terminal is capable of sending messages
+		/// </summary>
+		Sender = 1,
+
+		/// <summary>
+		/// The terminal is capable of receiving messages.
+		/// </summary>
+		Receiver = 2,
+
+		/// <summary>
+		/// The terminal is capable of both sending and
+		/// receiving messages.
+		/// </summary>
+		Both = Sender | Receiver
 	}
 }

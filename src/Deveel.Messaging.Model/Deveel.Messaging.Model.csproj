@@ -1,1 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk" />
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Model</Title>
+    <Description>
+      Provides the core model of the OmniMessage framework.
+    </Description>
+    <PackageTags>message;omnichannel;messaging;content;terminal;model;core</PackageTags>
+  </PropertyGroup>
+</Project>
