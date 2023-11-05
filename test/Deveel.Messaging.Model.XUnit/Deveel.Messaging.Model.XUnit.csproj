@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Deveel.Messaging.Model\Deveel.Messaging.Model.csproj" />
+    <ProjectReference Include="..\..\src\Deveel.Messaging.Objects\Deveel.Messaging.Objects.csproj" />
+  </ItemGroup>
+
+</Project>

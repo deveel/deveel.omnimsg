@@ -1,4 +1,18 @@
-﻿using System.Collections.ObjectModel;
+﻿// Copyright 2023 Deveel AS
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using System.Collections.ObjectModel;
 
 namespace Deveel.Messaging {
 	/// <summary>
@@ -34,6 +48,8 @@ namespace Deveel.Messaging {
 		public static bool IsInbound(this IMessage message)
             => message.Direction == MessageDirection.Inbound;
 
+		#region Options
+
 		/// <summary>
 		/// Indicates if the given message is intended to be
 		/// a test message.
@@ -52,18 +68,79 @@ namespace Deveel.Messaging {
 		public static bool HasRetry(this IMessage message)
 			=> message.Options?.ContainsKey(KnownMessageOptions.Retry) ?? false;
 
+		/// <summary>
+		/// Gets a value indicating if the message has
+		/// a retry option set.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to check.
+		/// </param>
+		/// <returns>
+		/// Returns <c>true</c> if the message has a retry
+		/// option set, or <c>false</c> or <c>null</c> if not.
+		/// </returns>
 		public static bool? Retry(this IMessage message)
 			=> (message.Options?.TryGetValue(KnownMessageOptions.Retry, out bool? isRetry) ?? false) ? isRetry : null;
 
+		/// <summary>
+		/// Gets the number of times the message should
+		/// be retried to be delivered.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to check.
+		/// </param>
+		/// <returns>
+		/// Returns the number of times the message should
+		/// be retried to be delivered, or <c>null</c> if
+		/// the message has no retry option set.
+		/// </returns>
 		public static int? RetryCount(this IMessage message)
 			=> message.Options?.TryGetValue(KnownMessageOptions.RetryCount, out int? count) ?? false ? count : null;
 
+		/// <summary>
+		/// Gets the delay in milliseconds that should be
+		/// waited before retrying to deliver the message.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to check.
+		/// </param>
+		/// <returns>
+		/// Returns the delay in milliseconds that should be
+		/// waited before retrying to deliver the message,
+		/// or <c>null</c> if the message has no retry option set.
+		/// </returns>
 		public static int? RetryDelay(this IMessage message)
 			=> message.Options?.TryGetValue(KnownMessageOptions.RetryDelay, out int? delay) ?? false ? delay : null;
 
+		/// <summary>
+		/// Gets the timeout in milliseconds that should be
+		/// waited before the message retry is considered
+		/// timed-out.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to check.
+		/// </param>
+		/// <returns>
+		/// Returns a value indicating the timeout in milliseconds
+		/// that should be waited before the message retry is
+		/// considered timed-out, or <c>null</c> if the message
+		/// has no timeout option set.
+		/// </returns>
 		public static int? Timeout(this IMessage message)
 			=> message.Options?.TryGetValue(KnownMessageOptions.Timeout, out int? timeout) ?? false ? timeout : null;
 
+		/// <summary>
+		/// Gets a value indicating the expiration of 
+		/// the message.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to check.
+		/// </param>
+		/// <returns>
+		/// Returns a value indicating the expiration of
+		/// the message, or <c>null</c> if the message
+		/// has no expiration option set.
+		/// </returns>
 		public static TimeSpan? Expiration(this IMessage message)
 			=> message.Options?.TryGetValue(KnownMessageOptions.Expiration, out TimeSpan? expiration) ?? false ? expiration : null;
 
@@ -105,14 +182,60 @@ namespace Deveel.Messaging {
 				{optionName, value}
 			});
 
+		/// <summary>
+		/// Extends the message with a retry option.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to extend.
+		/// </param>
+		/// <param name="retry">
+		/// The boolean value indicating if the message
+		/// should be retried to be delivered, or not.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// has the retry option set.
+		/// </returns>
 		public static IMessage WithRetry(this IMessage message, bool retry = true)
-			=> message.With(KnownMessageOptions.Retry, retry);
+			=> message.WithOption(KnownMessageOptions.Retry, retry);
 
+		/// <summary>
+		/// Sets the number of times the message should
+		/// be retried to be delivered.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to extend.
+		/// </param>
+		/// <param name="count">
+		/// The number of times the message should be
+		/// retried to be delivered.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// has the retry count option set.
+		/// </returns>
 		public static IMessage WithRetryCount(this IMessage message, int count)
-			=> message.With(KnownMessageOptions.RetryCount, count);
+			=> message.WithOption(KnownMessageOptions.RetryCount, count);
 
+		/// <summary>
+		/// Sets the delay in milliseconds that should be
+		/// waited before retrying to deliver the message.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to extend.
+		/// </param>
+		/// <param name="delayMillis">
+		/// The delay in milliseconds that should be waited
+		/// before retrying to deliver the message.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// has the retry delay option set.
+		/// </returns>
 		public static IMessage WithRetryDelay(this IMessage message, int delayMillis)
-			=> message.With(KnownMessageOptions.RetryDelay, delayMillis);
+			=> message.WithOption(KnownMessageOptions.RetryDelay, delayMillis);
+
+		#endregion
 
 		public static IMessage WithContext(this IMessage message, IDictionary<string, object> context)
 			=> new MessageWithContext(message, new MessageContextProviderImpl(context), false);
@@ -120,11 +243,7 @@ namespace Deveel.Messaging {
 		public static IMessage WithContext(this IMessage message, IMessageContextProvider contextProvider)
 			=> new MessageWithContext(message, contextProvider);
 
-		public static IMessage WithAttempt(this IMessage message, int attemptCount)
-			=> message.With(KnownMessageProperties.Attempt, attemptCount);
-
-		public static int? Attempt(this IMessage message)
-			=> message.Properties?.TryGetValue(KnownMessageProperties.Attempt, out int? attemptCount) ?? false ? attemptCount : null;
+		#region Properties
 
 		/// <summary>
 		/// Extends the message with a set of properties.
@@ -142,10 +261,46 @@ namespace Deveel.Messaging {
 		public static IMessage With(this IMessage message, IDictionary<string, object> properties)
 			=> new MessageWithProperty(message, properties);
 
+		/// <summary>
+		/// Extends the message with a single property.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to extend.
+		/// </param>
+		/// <param name="propertyName">
+		/// The name of the property to add to the message.
+		/// </param>
+		/// <param name="value">
+		/// The value of the property to add to the message.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// has the given property merged with the existing
+		/// set of properties.
+		/// </returns>
 		public static IMessage With(this IMessage message, string propertyName, object value)
 			=> new MessageWithProperty(message, new Dictionary<string, object> {
 				{propertyName, value}
 			});
+
+		/// <summary>
+		/// Sets the delivery attempt number of the message.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to extend.
+		/// </param>
+		/// <param name="attemptCount">
+		/// A value indicating the number of times the message.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// has the delivery attempt property set.
+		/// </returns>
+		public static IMessage WithAttempt(this IMessage message, int attemptCount)
+			=> message.With(KnownMessageProperties.Attempt, attemptCount);
+
+		public static int? Attempt(this IMessage message)
+			=> message.Properties?.TryGetValue(KnownMessageProperties.Attempt, out int? attemptCount) ?? false ? attemptCount : null;
 
 		public static string? RemoteMessageId(this IMessage message)
 			=> message.Properties?.TryGetValue(KnownMessageProperties.RemoteMessageId, out string? remoteId) ?? false ? remoteId : null;
@@ -153,18 +308,64 @@ namespace Deveel.Messaging {
 		public static IMessage WithRemoteMessageId(this IMessage message, string remoteId)
 			=> message.With(KnownMessageProperties.RemoteMessageId, remoteId);
 
+		/// <summary>
+		/// Gets the subject property of the message.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message that has the 
+		/// subject property.
+		/// </param>
+		/// <returns></returns>
 		public static string? Subject(this IMessage message)
 			=> message.Properties?.TryGetValue(KnownMessageProperties.Subject, out string? subject) ?? false ? subject : null;
 
+		/// <summary>
+		/// Extends the message with a subject property.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to extend.
+		/// </param>
+		/// <param name="subject">
+		/// The subject of the message.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// has the subject property set.
+		/// </returns>
 		public static IMessage WithSubject(this IMessage message, string subject)
 			=> message.With(KnownMessageProperties.Subject, subject);
 
-		public static IMessage WithFallbackTo(this IMessage message, string messageId)
-			=> message.With(KnownMessageProperties.FallbackMessageId, messageId);
+		#endregion
 
+		/// <summary>
+		/// Sets the sender of the message.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to extend.
+		/// </param>
+		/// <param name="sender">
+		/// The terminal that is the sender of the message.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// has the sender set.
+		/// </returns>
 		public static IMessage WithSender(this IMessage message, ITerminal sender)
 			=> new MessageWithSender(message, sender);
 
+		/// <summary>
+		/// Sets the receiver of the message.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to extend.
+		/// </param>
+		/// <param name="receiver">
+		/// The terminal that is the receiver of the message.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// has the receiver set.
+		/// </returns>
         public static IMessage WithReceiver(this IMessage message, ITerminal receiver)
             => new MessageWithReceiver(message, receiver);
 
@@ -174,6 +375,16 @@ namespace Deveel.Messaging {
         public static IMessage WithContent(this IMessage message, IMessageContent content)
             => new MessageWithContent(message, content);
 
+		/// <summary>
+		/// Makes the given message read-only.
+		/// </summary>
+		/// <param name="message">
+		/// The instance of the message to make read-only.
+		/// </param>
+		/// <returns>
+		/// Returns a new instance of the message that
+		/// is read-only.
+		/// </returns>
         public static IMessage AsReadOnly(this IMessage message)
             => new MessageWrapper(message);
 

@@ -1,23 +1,79 @@
-﻿namespace Deveel.Messaging.Channels {
+﻿// Copyright 2023 Deveel AS
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+namespace Deveel.Messaging.Channels {
+	/// <summary>
+	/// An object tha provides a fluent interface to 
+	/// build a channel schema.
+	/// </summary>
 	public sealed class ChannelSchemaBuilder {
 		private readonly ChannelSchema schema;
 
+		/// <summary>
+		/// Constructs the builder with an empty schema.
+		/// </summary>
 		public ChannelSchemaBuilder()
 			: this(new ChannelSchema()) {
 		}
 
+		/// <summary>
+		/// Constructs the builder with the given schema
+		/// to initialize the builder.
+		/// </summary>
+		/// <param name="schema">
+		/// The schema to initialize the builder.
+		/// </param>
 		public ChannelSchemaBuilder(IChannelSchema schema) {
 			this.schema = new ChannelSchema(schema);
 		}
 
+		/// <summary>
+		/// Sets ths type of the channel.
+		/// </summary>
+		/// <param name="type">
+		/// The type of the channel.
+		/// </param>
+		/// <returns>
+		/// Returns the instance of the builder.
+		/// </returns>
+		/// <exception cref="ArgumentException">
+		/// Thrown when the given <paramref name="type"/> is <c>null</c> 
+		/// or empty.
+		/// </exception>
 		public ChannelSchemaBuilder OfType(string type) {
-            if (String.IsNullOrWhiteSpace(type))
-                throw new ArgumentException($"'{nameof(type)}' cannot be null or whitespace.", nameof(type));
-
-            schema.Type = type;
+#if NET7_0_OR_GREATER
+			ArgumentNullException.ThrowIfNullOrEmpty(type, nameof(type));
+#else
+			if (String.IsNullOrWhiteSpace(type))
+				throw new ArgumentException($"'{nameof(type)}' cannot be null or whitespace.", nameof(type));
+#endif
+			schema.Type = type;
 			return this;
 		}
 
+		/// <summary>
+		/// Sets the provider of messaging services
+		/// for the channel.
+		/// </summary>
+		/// <param name="provider">
+		/// The identifier of the provider of the
+		/// messging channel.
+		/// </param>
+		/// <returns>
+		/// Returns the instance of the builder.
+		/// </returns>
+		/// <exception cref="ArgumentException"></exception>
 		public ChannelSchemaBuilder ByProvider(string provider) {
             if (String.IsNullOrWhiteSpace(provider))
                 throw new ArgumentException($"'{nameof(provider)}' cannot be null or whitespace.", nameof(provider));
@@ -26,6 +82,19 @@
 			return this;
 		}
 
+		/// <summary>
+		/// Sets the supported routing directions by
+		/// the channel.
+		/// </summary>
+		/// <param name="direction">
+		/// The direction of the channel.
+		/// </param>
+		/// <returns>
+		/// Returns the instance of the builder.
+		/// </returns>
+		/// <exception cref="ArgumentException">
+		/// Thrown when the given <paramref name="direction"/> is <see cref="ChannelDirection.None"/>.
+		/// </exception>
 		public ChannelSchemaBuilder WithDirection(ChannelDirection direction) {
             if (direction == ChannelDirection.None)
                 throw new ArgumentException($"'{nameof(direction)}' cannot be {nameof(ChannelDirection.None)}.", nameof(direction));
@@ -34,12 +103,31 @@
 			return this;
 		}
 
+		/// <summary>
+		/// Sets that the channel supports inbound routing.
+		/// </summary>
+		/// <returns>
+		/// Returns the instance of the builder.
+		/// </returns>
         public ChannelSchemaBuilder WithInbound()
             => WithDirection(ChannelDirection.Inbound);
 
+		/// <summary>
+		/// Sets that the channel supports outbound routing.
+		/// </summary>
+		/// <returns>
+		/// Returns the instance of the builder.
+		/// </returns>
         public ChannelSchemaBuilder WithOutbound()
             => WithDirection(ChannelDirection.Outbound);
 
+		/// <summary>
+		/// Sets that the channel supports both inbound 
+		/// and outbound routing.
+		/// </summary>
+		/// <returns>
+		/// Returns the instance of the builder.
+		/// </returns>
         public ChannelSchemaBuilder WithDuplex()
             => WithDirection(ChannelDirection.Duplex);
 
@@ -140,6 +228,17 @@
 			return this;
 		}
 
+		/// <summary>
+		/// Validates and builds the channel schema
+		/// with the current configuration.
+		/// </summary>
+		/// <returns>
+		/// Returns an instance of <see cref="IChannelSchema"/>
+		/// that has been built from the current configuration.
+		/// </returns>
+		/// <exception cref="InvalidOperationException">
+		/// Thrown when the current configuration is not valid.
+		/// </exception>
 		public IChannelSchema Build() {
 			Validate();
 

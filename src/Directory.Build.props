@@ -5,7 +5,39 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Deveel</RootNamespace>
 
+    <!-- NuGet Metadata and Commands -->
+    <Authors>Antonello Provenzano</Authors>
+    <Company>Deveel</Company>
+    <Copyright>(C) 2023 Antonello Provenzano</Copyright>
+    <PackageProjectUrl>https://github.com/deveel/deveel.omnimsg</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/deveel/deveel.omnimsg</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>deveel-logo.png</PackageIcon>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <ReadmeFile>../README.md</ReadmeFile>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\deveel-logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\apl2.0.licenseheader">
+      <Pack>False</Pack>
+    </None>
+  </ItemGroup>
 </Project>

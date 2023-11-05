@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Channel Objects</Title>
+    <PackageTags>message;channel;channels;messaging;provider;credentials;model;objects</PackageTags>
+    <Description>
+      A set of objects that implement the Channel model of the OmniMessage framework.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Channel.Model\Deveel.Messaging.Channel.Model.csproj" />
+  </ItemGroup>
+
+</Project>
