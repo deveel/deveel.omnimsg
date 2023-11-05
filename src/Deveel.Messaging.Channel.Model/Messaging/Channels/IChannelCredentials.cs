@@ -21,6 +21,6 @@ namespace Deveel.Messaging.Channels {
 		/// <summary>
 		/// Gets the type of credentials.
 		/// </summary>
-		string Type { get; }
+		string CredentialsType { get; }
 	}
 }

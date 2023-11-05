@@ -50,5 +50,27 @@ namespace Deveel.Messaging.Channels {
             Assert.True(schema.AllowsContentType(KnownMessageContentTypes.Html));
             Assert.False(schema.AllowsContentType(KnownMessageContentTypes.Multipart));
         }
+
+		[Fact]
+		public static void BuildChannelSchemaFromSource() {
+			var schema = new ChannelSchema {
+				Type = "test",
+				Provider = "deveel",
+				Directions = ChannelDirection.Duplex,
+			};
+
+			var builtSchema = new ChannelSchemaBuilder(schema)
+				.WithAllowedContentTypes("*")
+				.WithAllowedEmailSender()
+				.Build();
+
+			Assert.NotNull(builtSchema);
+			Assert.Equal(schema.Type, builtSchema.Type);
+			Assert.Equal(schema.Provider, builtSchema.Provider);
+			Assert.Equal(schema.Directions, builtSchema.Directions);
+			Assert.True(builtSchema.AllowsSendersOfType(KnownTerminalTypes.Email));
+			Assert.True(builtSchema.AllowsContentType(KnownMessageContentTypes.Text));
+			Assert.True(builtSchema.AllowsContentType(KnownMessageContentTypes.Html));
+		}
     }
 }

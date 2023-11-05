@@ -22,6 +22,6 @@ namespace Deveel.Messaging.Channels {
 		/// Gets the unique identifier of the terminal
 		/// in the scope of the application.
 		/// </summary>
-		string Id { get; }
+		string? Id { get; }
 	}
 }

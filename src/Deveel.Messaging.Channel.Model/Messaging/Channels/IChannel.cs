@@ -17,12 +17,30 @@ namespace Deveel.Messaging.Channels {
 	/// An instance of a messaging channel that is used
 	/// to transport messages through a network.
 	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// A channel is a logical entity that is used to
+	/// provide configurations and options to the
+	/// connection to a provider of messaging services.
+	/// </para>
+	/// <para>
+	/// It is possible to have multiple channels of the
+	/// same type, from the same provider, but with
+	/// different configurations and options.
+	/// </para>
+	/// </remarks>
 	public interface IChannel : IMessageContextProvider {
 		/// <summary>
 		/// Gets the unique identifier of the channel
 		/// instance in the scope of the network.
 		/// </summary>
 		string Id { get; }
+
+		/// <summary>
+		/// Gets the identifier of the tenant that
+		/// owns the channel.
+		/// </summary>
+		string? TenantId { get; }
 
 		/// <summary>
 		/// Gets the type of the channel.
@@ -52,7 +70,7 @@ namespace Deveel.Messaging.Channels {
 		/// bound to the channel, as stable senders or 
 		/// receivers.
 		/// </summary>
-		IEnumerable<IChannelTerminal> Terminals { get; }
+		IEnumerable<IChannelTerminal>? Terminals { get; }
 
 		/// <summary>
 		/// Gets a set of content types that are supported
@@ -64,13 +82,13 @@ namespace Deveel.Messaging.Channels {
 		/// Gets a set of options that are used to configure
 		/// the behavior of the channel.
 		/// </summary>
-		IDictionary<string, object> Options { get; }
+		IDictionary<string, object>? Options { get; }
 
 		/// <summary>
 		/// Gets a set of credentials that are used to
 		/// authenticate the channel towards the network.
 		/// </summary>
-		IEnumerable<IChannelCredentials> Credentials { get; }
+		IEnumerable<IChannelCredentials>? Credentials { get; }
 
 		/// <summary>
 		/// Gets the current status of the channel.
