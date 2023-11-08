@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Sender Service</Title>
+    <Description>A service that implements the functions for sending messages through a channel.</Description>
+    <PackageTags>message;sender;service;senderservice;channel;messaging</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Polly" Version="7.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Channel.Connector\Deveel.Messaging.Channel.Connector.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Channel.Resolver\Deveel.Messaging.Channel.Resolver.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Logger\Deveel.Messaging.Logger.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.StateHandler\Deveel.Messaging.StateHandler.csproj" />
+  </ItemGroup>
+
+</Project>

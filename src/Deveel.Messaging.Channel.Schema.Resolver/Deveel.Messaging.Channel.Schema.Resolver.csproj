@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Channel.Model\Deveel.Messaging.Channel.Model.csproj" />
+  </ItemGroup>
+
+</Project>

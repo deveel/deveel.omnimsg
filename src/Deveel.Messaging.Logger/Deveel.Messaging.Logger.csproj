@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Logger</Title>
+    <Description>Provides abstractions and base classes for the implementation of loggers of messages sent or received</Description>
+    <PackageTags>message;logger;logging;log</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Model\Deveel.Messaging.Model.csproj" />
+  </ItemGroup>
+
+</Project>

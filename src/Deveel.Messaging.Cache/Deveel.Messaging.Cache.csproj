@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Cache</Title>
+    <Description>Provides the abstractions and base contracts to implement a message cache in the OmniMessage framework</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Model\Deveel.Messaging.Model.csproj" />
+  </ItemGroup>
+
+</Project>

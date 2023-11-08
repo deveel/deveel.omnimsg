@@ -12,12 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Deveel.Messaging {
 	/// <summary>
 	/// Describes an error that is associated to a message.
@@ -35,10 +29,14 @@ namespace Deveel.Messaging {
 		string? Message { get; }
 
 		/// <summary>
-		/// Gets a flag indicating if the error occurred
-		/// in the local messaging system or in the remote
-		/// provider of the messaging services.
+		/// Gets an optional error that is the cause
+		/// of this error.
 		/// </summary>
-		bool IsRemote { get; }
+		/// <remarks>
+		/// In a messaging system, this type of error is
+		/// typically the error that is received from a remote
+		/// message channel.
+		/// </remarks>
+		IMessageError? InnerError { get; }
 	}
 }

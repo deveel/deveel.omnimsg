@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage State Handler</Title>
+    <Description>Provides abstractions and base classes for the handling message state changes</Description>
+    <PackageTags>message;state;messagestate;status;handler;messagehandler</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Model\Deveel.Messaging.Model.csproj" />
+  </ItemGroup>
+
+</Project>

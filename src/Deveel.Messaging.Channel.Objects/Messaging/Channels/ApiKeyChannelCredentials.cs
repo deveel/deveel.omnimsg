@@ -13,20 +13,36 @@
 // limitations under the License.
 
 namespace Deveel.Messaging.Channels {
+	/// <summary>
+	/// An object that provides API Key credentials to a channel.
+	/// </summary>
 	public sealed class ApiKeyChannelCredentials : ChannelCredentials, IApiKeyChannelCredentials {
+		/// <summary>
+		/// Constructs the credentials object.
+		/// </summary>
 		public ApiKeyChannelCredentials() {
 		}
 
+		/// <summary>
+		/// Constructs the credentials object with the given API key.
+		/// </summary>
+		/// <param name="apiKey"></param>
 		public ApiKeyChannelCredentials(string apiKey) {
 			ApiKey = apiKey;
 		}
 
+		/// <summary>
+		/// Constructs the credentials object from another API Key.
+		/// </summary>
+		/// <param name="apiKey"></param>
 		public ApiKeyChannelCredentials(IApiKeyChannelCredentials apiKey) {
 			ApiKey = apiKey.ApiKey;
 		}
 
+		/// <inheritdoc/>
 		public string ApiKey { get; set; }
 
+		/// <inheritdoc/>
 		protected override string CredentialsType => KnownChannelCredentialsTypes.ApiKey;
 	}
 }

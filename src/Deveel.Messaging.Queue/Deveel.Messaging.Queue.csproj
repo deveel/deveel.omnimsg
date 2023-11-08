@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Queue</Title>
+    <Description>Provides abstractions and base contracts to implement message queues in the OmniMessage framework.</Description>
+    <PackageTags>message;queue;messagequeue;messaging;fifo</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Model\Deveel.Messaging.Model.csproj" />
+  </ItemGroup>
+
+</Project>

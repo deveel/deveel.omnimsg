@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Deveel.Messaging.Channel.Objects\Deveel.Messaging.Channel.Objects.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Channel.Fakes\Deveel.Messaging.Channel.Fakes.csproj" />
   </ItemGroup>
 
 </Project>

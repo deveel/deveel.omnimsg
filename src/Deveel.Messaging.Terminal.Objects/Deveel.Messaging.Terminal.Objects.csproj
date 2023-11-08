@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Terminal Objects</Title>
+    <Description>A set of objects implementing the Terminal domain model</Description>
+    <PackageTags>terminal;service;model;object;objects;messaging</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Terminal.Model\Deveel.Messaging.Terminal.Model.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -21,17 +21,59 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deveel.Messaging.Model.XUni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deveel.Messaging.Objects", "src\Deveel.Messaging.Objects\Deveel.Messaging.Objects.csproj", "{EAE9E751-104E-4049-9DF3-6CA53DCB189D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Channel.XUnit", "test\Deveel.Messaging.Channel.XUnit\Deveel.Messaging.Channel.XUnit.csproj", "{D899AF43-CBFA-4C35-BA9D-F60D3FFD0D7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deveel.Messaging.Channel.XUnit", "test\Deveel.Messaging.Channel.XUnit\Deveel.Messaging.Channel.XUnit.csproj", "{D899AF43-CBFA-4C35-BA9D-F60D3FFD0D7F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "channel", "channel", "{116411DC-A5DB-4682-92FA-1FCEDD1E5556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Channel.Objects", "src\Deveel.Messaging.Channel.Objects\Deveel.Messaging.Channel.Objects.csproj", "{ACC6DAEF-EA6C-43DF-A8D0-0FA2CF319AA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deveel.Messaging.Channel.Objects", "src\Deveel.Messaging.Channel.Objects\Deveel.Messaging.Channel.Objects.csproj", "{ACC6DAEF-EA6C-43DF-A8D0-0FA2CF319AA9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terminals", "terminals", "{D99E4C1F-737B-47E6-8AAC-CA8D590E11E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Terminal.Model", "src\Deveel.Messaging.Terminal.Model\Deveel.Messaging.Terminal.Model.csproj", "{BEFD3F5E-D60A-4BFB-9FB5-60BBA90B975F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deveel.Messaging.Terminal.Model", "src\Deveel.Messaging.Terminal.Model\Deveel.Messaging.Terminal.Model.csproj", "{BEFD3F5E-D60A-4BFB-9FB5-60BBA90B975F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Terminal.Integrator", "src\Deveel.Messaging.Terminal.Integrator\Deveel.Messaging.Terminal.Integrator.csproj", "{64AA6AC4-6E25-49D7-9205-671563621AA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deveel.Messaging.Terminal.Integrator", "src\Deveel.Messaging.Terminal.Integrator\Deveel.Messaging.Terminal.Integrator.csproj", "{64AA6AC4-6E25-49D7-9205-671563621AA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Terminal.Resolver", "src\Deveel.Messaging.Terminal.Resolver\Deveel.Messaging.Terminal.Resolver.csproj", "{CB332FD7-154D-4B17-B6DD-2BAA39451DE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Channel.Resolver", "src\Deveel.Messaging.Channel.Resolver\Deveel.Messaging.Channel.Resolver.csproj", "{FFE9CC41-27ED-4F48-84C3-E4D1878BBF68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Processor", "src\Deveel.Messaging.Processor\Deveel.Messaging.Processor.csproj", "{1A870D21-349D-4BC6-A957-B02AAFE5C564}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "processors", "processors", "{F6CAD4E2-9DFD-4771-B4C2-BE292CEC53B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Cache", "src\Deveel.Messaging.Cache\Deveel.Messaging.Cache.csproj", "{A864944D-A5B1-44D0-A142-6FDFFC1F28D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Queue", "src\Deveel.Messaging.Queue\Deveel.Messaging.Queue.csproj", "{4B6DDD04-EA94-4E8F-961E-D659BC91797B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Processor.XUnit", "test\Deveel.Messaging.Processor.XUnit\Deveel.Messaging.Processor.XUnit.csproj", "{9DE8F127-783C-4487-9239-9A286407D574}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "queues", "queues", "{04247371-7D64-4AF4-A4C8-F1D35838B537}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Channel.Connector", "src\Deveel.Messaging.Channel.Connector\Deveel.Messaging.Channel.Connector.csproj", "{93BA2B14-7D65-43D4-B0E9-760D4E5A15E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deveel.Messaging.Channel.Schema.Resolver", "src\Deveel.Messaging.Channel.Schema.Resolver\Deveel.Messaging.Channel.Schema.Resolver.csproj", "{CD828192-5D99-4ED9-AD7C-3F8BCE333C2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Sender", "src\Deveel.Messaging.Sender\Deveel.Messaging.Sender.csproj", "{1750F3D1-75ED-4E77-A185-BB1BF82A6ACD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logging", "logging", "{9D838455-5C6E-4C8B-B2C5-FB8526EF8B43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Logger", "src\Deveel.Messaging.Logger\Deveel.Messaging.Logger.csproj", "{AD605CAC-12CF-42BC-A0E8-C3D6EE9D78CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.StateHandler", "src\Deveel.Messaging.StateHandler\Deveel.Messaging.StateHandler.csproj", "{842A7ECC-DFA1-4830-B5B0-44A1C622A4AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Sender.XUnit", "test\Deveel.Messaging.Sender.XUnit\Deveel.Messaging.Sender.XUnit.csproj", "{D479E01B-9D7B-49C1-B232-17D289D8D8D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "util", "util", "{F43E1F07-39A2-4AE3-B061-55AD4C5D2DBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Terminal.Resolver.Test", "test\Deveel.Messaging.Terminal.Resolver.Test\Deveel.Messaging.Terminal.Resolver.Test.csproj", "{22C633F6-22E8-4A87-A3B4-A5C9EF8BFE7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Terminal.Objects", "src\Deveel.Messaging.Terminal.Objects\Deveel.Messaging.Terminal.Objects.csproj", "{D7541151-8562-426B-8E72-60AD4D122EA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Channel.Resolver.Test", "test\Deveel.Messaging.Channel.Resolver.Test\Deveel.Messaging.Channel.Resolver.Test.csproj", "{852027EA-178C-4391-A4A5-39181D4F034F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Channel.Fakes", "test\Deveel.Messaging.Channel.Fakes\Deveel.Messaging.Channel.Fakes.csproj", "{2F4B5A83-CF62-4224-AF48-DE068CA2B319}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deveel.Messaging.Channel.Connector.Test", "test\Deveel.Messaging.Channel.Connector.Test\Deveel.Messaging.Channel.Connector.Test.csproj", "{2D858104-F81A-4CCE-BBF5-9BD8848C1BCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +113,74 @@ Global
 		{64AA6AC4-6E25-49D7-9205-671563621AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64AA6AC4-6E25-49D7-9205-671563621AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64AA6AC4-6E25-49D7-9205-671563621AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB332FD7-154D-4B17-B6DD-2BAA39451DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB332FD7-154D-4B17-B6DD-2BAA39451DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB332FD7-154D-4B17-B6DD-2BAA39451DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB332FD7-154D-4B17-B6DD-2BAA39451DE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFE9CC41-27ED-4F48-84C3-E4D1878BBF68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE9CC41-27ED-4F48-84C3-E4D1878BBF68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE9CC41-27ED-4F48-84C3-E4D1878BBF68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE9CC41-27ED-4F48-84C3-E4D1878BBF68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A870D21-349D-4BC6-A957-B02AAFE5C564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A870D21-349D-4BC6-A957-B02AAFE5C564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A870D21-349D-4BC6-A957-B02AAFE5C564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A870D21-349D-4BC6-A957-B02AAFE5C564}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A864944D-A5B1-44D0-A142-6FDFFC1F28D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A864944D-A5B1-44D0-A142-6FDFFC1F28D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A864944D-A5B1-44D0-A142-6FDFFC1F28D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A864944D-A5B1-44D0-A142-6FDFFC1F28D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B6DDD04-EA94-4E8F-961E-D659BC91797B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B6DDD04-EA94-4E8F-961E-D659BC91797B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B6DDD04-EA94-4E8F-961E-D659BC91797B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B6DDD04-EA94-4E8F-961E-D659BC91797B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DE8F127-783C-4487-9239-9A286407D574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DE8F127-783C-4487-9239-9A286407D574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DE8F127-783C-4487-9239-9A286407D574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DE8F127-783C-4487-9239-9A286407D574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93BA2B14-7D65-43D4-B0E9-760D4E5A15E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93BA2B14-7D65-43D4-B0E9-760D4E5A15E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93BA2B14-7D65-43D4-B0E9-760D4E5A15E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93BA2B14-7D65-43D4-B0E9-760D4E5A15E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD828192-5D99-4ED9-AD7C-3F8BCE333C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD828192-5D99-4ED9-AD7C-3F8BCE333C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD828192-5D99-4ED9-AD7C-3F8BCE333C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD828192-5D99-4ED9-AD7C-3F8BCE333C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1750F3D1-75ED-4E77-A185-BB1BF82A6ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1750F3D1-75ED-4E77-A185-BB1BF82A6ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1750F3D1-75ED-4E77-A185-BB1BF82A6ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1750F3D1-75ED-4E77-A185-BB1BF82A6ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD605CAC-12CF-42BC-A0E8-C3D6EE9D78CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD605CAC-12CF-42BC-A0E8-C3D6EE9D78CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD605CAC-12CF-42BC-A0E8-C3D6EE9D78CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD605CAC-12CF-42BC-A0E8-C3D6EE9D78CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842A7ECC-DFA1-4830-B5B0-44A1C622A4AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842A7ECC-DFA1-4830-B5B0-44A1C622A4AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842A7ECC-DFA1-4830-B5B0-44A1C622A4AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842A7ECC-DFA1-4830-B5B0-44A1C622A4AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D479E01B-9D7B-49C1-B232-17D289D8D8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D479E01B-9D7B-49C1-B232-17D289D8D8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D479E01B-9D7B-49C1-B232-17D289D8D8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D479E01B-9D7B-49C1-B232-17D289D8D8D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22C633F6-22E8-4A87-A3B4-A5C9EF8BFE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22C633F6-22E8-4A87-A3B4-A5C9EF8BFE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22C633F6-22E8-4A87-A3B4-A5C9EF8BFE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22C633F6-22E8-4A87-A3B4-A5C9EF8BFE7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7541151-8562-426B-8E72-60AD4D122EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7541151-8562-426B-8E72-60AD4D122EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7541151-8562-426B-8E72-60AD4D122EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7541151-8562-426B-8E72-60AD4D122EA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{852027EA-178C-4391-A4A5-39181D4F034F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{852027EA-178C-4391-A4A5-39181D4F034F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{852027EA-178C-4391-A4A5-39181D4F034F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{852027EA-178C-4391-A4A5-39181D4F034F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F4B5A83-CF62-4224-AF48-DE068CA2B319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4B5A83-CF62-4224-AF48-DE068CA2B319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4B5A83-CF62-4224-AF48-DE068CA2B319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4B5A83-CF62-4224-AF48-DE068CA2B319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D858104-F81A-4CCE-BBF5-9BD8848C1BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D858104-F81A-4CCE-BBF5-9BD8848C1BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D858104-F81A-4CCE-BBF5-9BD8848C1BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D858104-F81A-4CCE-BBF5-9BD8848C1BCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,7 +195,28 @@ Global
 		{ACC6DAEF-EA6C-43DF-A8D0-0FA2CF319AA9} = {116411DC-A5DB-4682-92FA-1FCEDD1E5556}
 		{D99E4C1F-737B-47E6-8AAC-CA8D590E11E9} = {7E6FABA9-AB17-471E-968C-08D0E0712C32}
 		{BEFD3F5E-D60A-4BFB-9FB5-60BBA90B975F} = {D99E4C1F-737B-47E6-8AAC-CA8D590E11E9}
-		{64AA6AC4-6E25-49D7-9205-671563621AA2} = {116411DC-A5DB-4682-92FA-1FCEDD1E5556}
+		{64AA6AC4-6E25-49D7-9205-671563621AA2} = {D99E4C1F-737B-47E6-8AAC-CA8D590E11E9}
+		{CB332FD7-154D-4B17-B6DD-2BAA39451DE4} = {D99E4C1F-737B-47E6-8AAC-CA8D590E11E9}
+		{FFE9CC41-27ED-4F48-84C3-E4D1878BBF68} = {116411DC-A5DB-4682-92FA-1FCEDD1E5556}
+		{1A870D21-349D-4BC6-A957-B02AAFE5C564} = {F6CAD4E2-9DFD-4771-B4C2-BE292CEC53B6}
+		{F6CAD4E2-9DFD-4771-B4C2-BE292CEC53B6} = {7E6FABA9-AB17-471E-968C-08D0E0712C32}
+		{A864944D-A5B1-44D0-A142-6FDFFC1F28D9} = {7E6FABA9-AB17-471E-968C-08D0E0712C32}
+		{4B6DDD04-EA94-4E8F-961E-D659BC91797B} = {04247371-7D64-4AF4-A4C8-F1D35838B537}
+		{9DE8F127-783C-4487-9239-9A286407D574} = {0FD6EE64-150C-48CC-9138-4F8429AB75A0}
+		{04247371-7D64-4AF4-A4C8-F1D35838B537} = {7E6FABA9-AB17-471E-968C-08D0E0712C32}
+		{93BA2B14-7D65-43D4-B0E9-760D4E5A15E5} = {116411DC-A5DB-4682-92FA-1FCEDD1E5556}
+		{CD828192-5D99-4ED9-AD7C-3F8BCE333C2B} = {116411DC-A5DB-4682-92FA-1FCEDD1E5556}
+		{1750F3D1-75ED-4E77-A185-BB1BF82A6ACD} = {7E6FABA9-AB17-471E-968C-08D0E0712C32}
+		{9D838455-5C6E-4C8B-B2C5-FB8526EF8B43} = {7E6FABA9-AB17-471E-968C-08D0E0712C32}
+		{AD605CAC-12CF-42BC-A0E8-C3D6EE9D78CF} = {9D838455-5C6E-4C8B-B2C5-FB8526EF8B43}
+		{842A7ECC-DFA1-4830-B5B0-44A1C622A4AF} = {7E6FABA9-AB17-471E-968C-08D0E0712C32}
+		{D479E01B-9D7B-49C1-B232-17D289D8D8D9} = {0FD6EE64-150C-48CC-9138-4F8429AB75A0}
+		{F43E1F07-39A2-4AE3-B061-55AD4C5D2DBD} = {0FD6EE64-150C-48CC-9138-4F8429AB75A0}
+		{22C633F6-22E8-4A87-A3B4-A5C9EF8BFE7D} = {F43E1F07-39A2-4AE3-B061-55AD4C5D2DBD}
+		{D7541151-8562-426B-8E72-60AD4D122EA4} = {D99E4C1F-737B-47E6-8AAC-CA8D590E11E9}
+		{852027EA-178C-4391-A4A5-39181D4F034F} = {F43E1F07-39A2-4AE3-B061-55AD4C5D2DBD}
+		{2F4B5A83-CF62-4224-AF48-DE068CA2B319} = {F43E1F07-39A2-4AE3-B061-55AD4C5D2DBD}
+		{2D858104-F81A-4CCE-BBF5-9BD8848C1BCF} = {F43E1F07-39A2-4AE3-B061-55AD4C5D2DBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1EC0E59B-287E-4A60-909B-278E8CD238BF}
