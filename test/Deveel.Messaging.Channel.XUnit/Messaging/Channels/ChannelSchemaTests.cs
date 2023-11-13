@@ -20,9 +20,19 @@ namespace Deveel.Messaging.Channels {
             Assert.True(schema.AllowsSendersOfType("any"));
             Assert.True(schema.AllowsReceiversOfType("any"));
             Assert.True(schema.AllowsContentType("any"));
-        }
+			Assert.True(schema.SupportsDuplex());
+			Assert.True(schema.SupportsInbound());
+			Assert.True(schema.SupportsOutbound());
+			Assert.False(schema.RequiresReceivers());
+			Assert.False(schema.RequiresSenders());
+			Assert.False(schema.RequiresSendersOfType(KnownTerminalTypes.Email));
+			Assert.False(schema.RequiresReceiversOfType(KnownTerminalTypes.Email));
+			Assert.True(schema.AllowsTextContent());
+			Assert.True(schema.AllowsHtmlContent());
+			Assert.True(schema.AllowsMultipartContent());
+		}
 
-        [Fact]
+		[Fact]
         public static void TestChannelSchemaBuilderWithTypes() {
             var schema = new ChannelSchemaBuilder()
                 .OfType("test")
@@ -49,7 +59,18 @@ namespace Deveel.Messaging.Channels {
             Assert.True(schema.AllowsContentType(KnownMessageContentTypes.Text));
             Assert.True(schema.AllowsContentType(KnownMessageContentTypes.Html));
             Assert.False(schema.AllowsContentType(KnownMessageContentTypes.Multipart));
-        }
+			Assert.True(schema.SupportsDuplex());
+			Assert.True(schema.SupportsInbound());
+			Assert.True(schema.SupportsOutbound());
+			Assert.False(schema.RequiresReceivers());
+			Assert.False(schema.RequiresSenders());
+			Assert.False(schema.RequiresReceivers());
+			Assert.False(schema.RequiresSendersOfType(KnownTerminalTypes.Email));
+			Assert.False(schema.RequiresReceiversOfType(KnownTerminalTypes.Email));
+			Assert.True(schema.AllowsTextContent());
+			Assert.True(schema.AllowsHtmlContent());
+			Assert.False(schema.AllowsMultipartContent());
+		}
 
 		[Fact]
 		public static void BuildChannelSchemaFromSource() {

@@ -31,11 +31,35 @@ namespace Deveel.Messaging {
 	public class MessageSender {
 		private readonly MessageSenderOptions options;
 		private readonly IChannelConnectorResolver connectorResolver;
-		private readonly IMessageLogger? messageLogger;
+		private readonly IMessageLogger messageLogger;
 		private readonly IChannelResolver channelResolver;
 		private readonly IMessageStateHandler? stateHandler;
 		private readonly ILogger logger;
 
+		/// <summary>
+		/// Creates an instance of the sender service.
+		/// </summary>
+		/// <param name="options">
+		/// A set of options that configure the behavior of the sender.
+		/// </param>
+		/// <param name="channelResolver">
+		/// A service that resolves the channels used to configure
+		/// the connections to the providers.
+		/// </param>
+		/// <param name="connectorResolver">
+		/// A service that resolves the connectors to the providers
+		/// of messaging services.
+		/// </param>
+		/// <param name="stateHandler">
+		/// An optional handler that is invoked when a local message 
+		/// state is available.
+		/// </param>
+		/// <param name="messageLogger">
+		/// A logger of the messages that are handled by the sender.
+		/// </param>
+		/// <param name="logger">
+		/// A logger to record the activity of the sender.
+		/// </param>
 		public MessageSender(
 			IOptions<MessageSenderOptions> options,
 			IChannelResolver channelResolver,
@@ -47,7 +71,7 @@ namespace Deveel.Messaging {
 			this.stateHandler = stateHandler;
 			this.channelResolver = channelResolver;
 			this.connectorResolver = connectorResolver;
-			this.messageLogger = messageLogger;
+			this.messageLogger = messageLogger ?? NullMessageLogger.Instance;
 			this.logger = logger ?? NullLogger<MessageSender>.Instance;
 		}
 
@@ -67,6 +91,14 @@ namespace Deveel.Messaging {
 		}
 
 		private async Task HandleStateAsync(IMessageState state, CancellationToken cancellationToken = default) {
+			using var scope = logger.BeginScope("TenantId: {TenantId}", state.TenantId);
+
+			try {
+				await messageLogger.LogMessageStateAsync(state, cancellationToken);
+			} catch (Exception ex) {
+				throw new MessagingException(MessagingErrorCode.UnknownError, "An error occurred while logging the message state", ex);
+			}
+
 			if (options.StateHandler != null) {
 				await options.StateHandler(state);
 			}
@@ -75,7 +107,7 @@ namespace Deveel.Messaging {
 				try {
 					await stateHandler.HandleAsync(state, cancellationToken);
 				} catch (Exception ex) {
-					logger.WarnCallbackError(ex, state.TenantId, state.MessageId, state.Status);
+					logger.WarnCallbackError(ex, state.MessageId, state.Status);
 				}
 			}
 
@@ -142,10 +174,12 @@ namespace Deveel.Messaging {
 		/// specified.
 		/// </exception>
 		public virtual async Task<MessageResult> SendAsync(IMessage message, CancellationToken cancellationToken = default) {
-			if (message == null)
-				throw new ArgumentNullException(nameof(message));
+			ArgumentNullException.ThrowIfNull(message, nameof(message));
+
 			if (message.Channel == null)
 				throw new ArgumentException("The message has no channel specified", nameof(message));
+
+			using var loggerScope = logger.BeginScope("TenantId: {TenantId}", message.TenantId);
 
 			try {
 				logger.TraceResolvingConnector(message.Channel.Type, message.Channel.Provider);
@@ -160,12 +194,12 @@ namespace Deveel.Messaging {
 				var channel = await FindChannelAsync(message.TenantId, message.Channel, cancellationToken);
 
 				if (channel == null) {
-					logger.LogChannelNotFound(message.TenantId, message.Channel.Type, message.Channel.Provider, message.Channel.Name);
+					logger.LogChannelNotFound(message.Channel.Type, message.Channel.Provider, message.Channel.Name);
 					return MessageResult.Fail(MessagingErrorCode.ChannelNotFound, "No channel found for the message");
 				}
 
 				if (!channel.IsActive()) {
-					logger.LogChannelNotActive(message.TenantId, message.Channel.Type, message.Channel.Provider, message.Channel.Name);
+					logger.LogChannelNotActive(message.Channel.Type, message.Channel.Provider, message.Channel.Name);
 					return MessageResult.Fail(MessagingErrorCode.ChannelNotActive, $"The channel {channel.Name} is not active");
 				}
 
@@ -178,9 +212,9 @@ namespace Deveel.Messaging {
 				var result = await SendMessageAsync(sender, message, channel, retryCount, cancellationToken);
 
 				if (result.Successful) {
-					logger.TraceMessageSent(message.TenantId, message.Id, channel.Type, channel.Provider, channel.Name);
+					logger.TraceMessageSent(message.Id, channel.Type, channel.Provider, channel.Name);
 				} else {
-					logger.WarnMessageNotSent(message.TenantId, message.Id, channel.Type, channel.Provider, channel.Name, result.Error!.Code, result.Error!.Message);
+					logger.WarnMessageNotSent(message.Id, channel.Type, channel.Provider, channel.Name, result.Error!.Code, result.Error!.Message);
 				}
 
 				return result;
@@ -250,7 +284,8 @@ namespace Deveel.Messaging {
 					var msg = (IMessage)context["message"];
 					msg = msg.WithAttempt(attempt + 1);
 
-					logger.TraceMessageRetrySend(msg.TenantId, msg.Id, channel.Type, channel.Provider, channel.Name);
+					using var loggerScope = logger.BeginScope("TenantId: {TenantId}", msg.TenantId);
+					logger.TraceMessageRetrySend(msg.Id, channel.Type, channel.Provider, channel.Name);
 
 					context["message"] = msg;
 				})
@@ -309,10 +344,23 @@ namespace Deveel.Messaging {
 			};
 		}
 
-		protected virtual async Task LogMessageAsync(IMessage message, CancellationToken cancellationToken) {
-			if (messageLogger != null) {
-				await messageLogger.LogMessageAsync(message, cancellationToken);
-			}
+		/// <summary>
+		/// Logs the given message that is to be sent.
+		/// </summary>
+		/// <param name="message">
+		/// The message to log.
+		/// </param>
+		/// <param name="cancellationToken">
+		/// A cancellation token that can be used to cancel the operation.
+		/// </param>
+		/// <returns>
+		/// Returns a task that when completed logs the message.
+		/// </returns>
+		protected virtual Task LogMessageAsync(IMessage message, CancellationToken cancellationToken) {
+			if (!options.LogMessages)
+				return Task.CompletedTask;
+
+			return messageLogger.LogMessageAsync(message, cancellationToken);
 		}
 
 		private async Task<IChannel?> FindChannelAsync(string? tenantId, IMessageChannel channel, CancellationToken cancellationToken) {
@@ -322,19 +370,21 @@ namespace Deveel.Messaging {
 			//       so that we don't resolve the same channel multiple times
 			//       for the same channel type, provider and tenant
 
-			var options = new ChannelResolutionOptions { 
+			var options = new ChannelResolutionOptions {
 				TenantId = tenantId,
-				IncludeCredentials = true 
+				IncludeCredentials = true
 			};
 
 			IChannel? result = null;
 
+			using var scope = this.logger.BeginScope("TenantId: {TenantId}", tenantId);
+
 			if (!String.IsNullOrWhiteSpace(channel.Id)) {
-				logger.TraceResolvingChannelById(tenantId, channel.Id);
+				logger.TraceResolvingChannelById(channel.Id);
 
 				result = await channelResolver.FindByIdAsync(channel.Id, options, cancellationToken);
 			} else if (!String.IsNullOrEmpty(channel.Name)) {
-				logger.TraceResolvingChannelByName(tenantId, channel.Name);
+				logger.TraceResolvingChannelByName(channel.Name);
 
 				result = await channelResolver.FindByNameAsync(channel.Name, options, cancellationToken);
 			} else {
@@ -342,7 +392,7 @@ namespace Deveel.Messaging {
 			}
 
 			if (result != null) {
-				logger.TraceChannelResolved(tenantId, result.Type, result.Provider, result.Name);
+				logger.TraceChannelResolved(result.Type, result.Provider, result.Name);
 			}
 
 			return result;

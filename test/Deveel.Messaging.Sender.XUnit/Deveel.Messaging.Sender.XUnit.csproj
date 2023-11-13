@@ -6,8 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="MartinCostello.Logging.XUnit" Version="0.3.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" Condition="'$(TargetFramework)' == 'net7.0'" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" Condition="'$(TargetFramework)' == 'net6.0'" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +24,7 @@
     <ProjectReference Include="..\Deveel.Messaging.Channel.Connector.Test\Deveel.Messaging.Channel.Connector.Test.csproj" />
     <ProjectReference Include="..\Deveel.Messaging.Channel.Fakes\Deveel.Messaging.Channel.Fakes.csproj" />
     <ProjectReference Include="..\Deveel.Messaging.Channel.Resolver.Test\Deveel.Messaging.Channel.Resolver.Test.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Logger.Test\Deveel.Messaging.Logger.Test.csproj" />
     <ProjectReference Include="..\Deveel.Messaging.Terminal.Resolver.Test\Deveel.Messaging.Terminal.Resolver.Test.csproj" />
   </ItemGroup>
 

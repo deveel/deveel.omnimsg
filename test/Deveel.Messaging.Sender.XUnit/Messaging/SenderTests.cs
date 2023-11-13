@@ -31,7 +31,11 @@ namespace Deveel.Messaging {
 
 		private IMessage? LastSentMessage { get; set; }
 
+		private IMessage? LastLoggedMessage { get; set; }
+
 		private IMessageState? LastState { get; set; }
+
+		private IMessageState? LastLoggedState { get; set; }
 
 		private int AttemptCount { get; set; }
 
@@ -47,6 +51,16 @@ namespace Deveel.Messaging {
 
 			services.AddTestChannelResolver(new ChannelFaker(TenantId).Generate(123));
 			services.AddTestTerminalResolver(GetServerTerminals());
+
+			services.AddTestMessageLogger((message, token) => {
+				outputHelper.WriteLine("Message: {0}", message.Id);
+				LastLoggedMessage = message;
+				return Task.CompletedTask;
+			}, (state, token) => {
+				outputHelper.WriteLine("State: {0}", state.MessageId);
+				LastLoggedState = state;
+				return Task.CompletedTask;
+			});
 
 			services.AddTestConnector(onSend: (message, token) => {
 				AttemptCount++;
