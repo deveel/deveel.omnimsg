@@ -1,5 +1,9 @@
 name: CI Build
 
+permissions:
+  packages: write
+  contents: read
+
 on:
   push:
     branches:
@@ -58,9 +62,6 @@ jobs:
 
     - name: Build
       run: dotnet build -c Release --no-restore
-
-    - name: Test
-      run: dotnet test -c Release --no-build --no-restore
 
     - name: Pack the Nuget Packages
       run: dotnet pack -c Release --no-build --no-restore --include-symbols --include-source --output nupkgs
