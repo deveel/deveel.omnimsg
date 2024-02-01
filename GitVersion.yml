@@ -1,2 +1,4 @@
 mode: Mainline
 tag-prefix: '[vV]'
+assembly-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-scheme: MajorMinorPatchTag

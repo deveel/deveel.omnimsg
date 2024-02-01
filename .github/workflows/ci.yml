@@ -51,6 +51,7 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0
       with:
         useConfigFile: true
+        updateAssemblyInfo: true
   
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -67,6 +68,6 @@ jobs:
       run: dotnet pack -c Release --no-build --no-restore --include-symbols --include-source --output nupkgs
 
     - name: Publish the Nuget Packages to the GitHub Package Registry
-      run: dotnet nuget push **/*.nupkg --source "https://nuget.pkg.github.com/deveel/index.json" --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget push **/*.nupkg --source "https://nuget.pkg.github.com/deveel/index.json" --skip-duplicate --username tsutomi --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
       env:
         NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
