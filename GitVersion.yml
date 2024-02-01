@@ -1,5 +1,4 @@
 mode: Mainline
-mainline: main
 tag-prefix: '[vV]'
 branches:
   issue:
