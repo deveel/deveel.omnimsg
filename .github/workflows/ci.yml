@@ -71,4 +71,4 @@ jobs:
       run: dotnet pack -c Release --no-build --no-restore --include-symbols --include-source --output nupkgs /p:PackageVersion=${{ env.GitVersion_SemVer }}
 
     - name: Publish the Nuget Packages to the GitHub Package Registry
-      run: dotnet nuget push **/*.nupkg --source "GitHub" --skip-duplicate
+      run: dotnet nuget push **/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "GitHub"
