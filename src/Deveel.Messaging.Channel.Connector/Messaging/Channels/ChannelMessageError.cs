@@ -23,5 +23,8 @@
 
 		public static ChannelMessageError Terminal(string errorCode, string? errorMessage = null, IMessageError? innerError = null)
 			=> new ChannelMessageError(errorCode, errorMessage, MessageErrorType.Terminal, innerError);
+
+		internal static List<ChannelMessageError>? NormalizeErrors(IEnumerable<IChannelMessageError>? errors)
+			=> errors?.Select(x => x.ErrorType == MessageErrorType.Terminal ? ChannelMessageError.Terminal(x.Code, x.Message) : ChannelMessageError.Transient(x.Code, x.Message))?.ToList();
 	}
 }

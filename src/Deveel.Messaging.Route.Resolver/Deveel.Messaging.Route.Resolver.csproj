@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Route Resolver</Title>
+    <Description>Provides the abstractions and base contracts to implement a message routing resolver in the OmniMessage framework</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Model\Deveel.Messaging.Model.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Route.Model\Deveel.Messaging.Route.Model.csproj" />
+  </ItemGroup>
+
+</Project>

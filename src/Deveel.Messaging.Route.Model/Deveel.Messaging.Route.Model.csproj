@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Route Model</Title>
+    <Description>The model of message routing tables used to determine the next node of a message</Description>
+  </PropertyGroup>
+
+</Project>

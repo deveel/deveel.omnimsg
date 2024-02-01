@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Deveel.Messaging.Route.Service\Deveel.Messaging.Route.Service.csproj" />
+  </ItemGroup>
+
+</Project>

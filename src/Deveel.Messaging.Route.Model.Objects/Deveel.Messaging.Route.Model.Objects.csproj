@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Routes Object Model</Title>
+    <PackageTags>message;route;routing;messaging;object</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Route.Model\Deveel.Messaging.Route.Model.csproj" />
+  </ItemGroup>
+
+</Project>

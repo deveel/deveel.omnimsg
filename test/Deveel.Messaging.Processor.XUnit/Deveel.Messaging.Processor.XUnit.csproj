@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Deveel.Messaging.Objects\Deveel.Messaging.Objects.csproj" />
     <ProjectReference Include="..\..\src\Deveel.Messaging.Processor\Deveel.Messaging.Processor.csproj" />
   </ItemGroup>
 

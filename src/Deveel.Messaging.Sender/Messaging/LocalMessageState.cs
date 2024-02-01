@@ -1,4 +1,18 @@
-﻿namespace Deveel.Messaging {
+﻿// Copyright 2023 Deveel AS
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+namespace Deveel.Messaging {
 	/// <summary>
 	/// A special implementation of <see cref="IMessageState"/> that is used
 	/// to represent the state of a message that is generated locally,
@@ -91,6 +105,29 @@
 			return new LocalMessageState(message, MessageStatus.Sent, id: id, timeStamp: timeStamp);
 		}
 
+		/// <summary>
+		/// Creates a new instance of a <see cref="LocalMessageState"/> that
+		/// represents a message that was failed to be sent.
+		/// </summary>
+		/// <param name="message">
+		/// The message that was failed to be sent.
+		/// </param>
+		/// <param name="error">
+		/// The instance of <see cref="IMessageError"/> that describes the
+		/// error that occurred during the sending operation.
+		/// </param>
+		/// <param name="id">
+		/// The optional identifier of the message state (when not provided,
+		/// a new unique identifier is generated).
+		/// </param>
+		/// <param name="timeStamp">
+		/// The optional time-stamp of the message state (when not provided,
+		/// it defaults to the current UTC time).
+		/// </param>
+		/// <returns>
+		/// Returns an instance of <see cref="LocalMessageState"/> that
+		/// indicates that the message was failed to be sent.
+		/// </returns>
 		public static LocalMessageState DeliveryFailed(IMessage message, IMessageError? error = null, string? id = null, DateTimeOffset? timeStamp = null) {
 			return new LocalMessageState(message, MessageStatus.DeliveryFailed, error, id, timeStamp);
 		}

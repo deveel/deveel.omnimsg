@@ -20,6 +20,6 @@
 		/// Returns an instance of <see cref="IMessage"/> that represents
 		/// a message received from the channel.
 		/// </returns>
-		Task<IMessage?> ReceiveAsync(CancellationToken cancellationToken = default);
+		Task<MessageReceiveResult> ReceiveAsync(CancellationToken cancellationToken = default);
 	}
 }

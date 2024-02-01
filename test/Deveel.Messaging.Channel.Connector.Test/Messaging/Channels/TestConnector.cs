@@ -12,9 +12,11 @@ namespace Deveel.Messaging.Channels {
 	[Connector(TestChannelDefaults.Type, TestChannelDefaults.Provider)]
 	public class TestConnector : ChannelConnectorBase {
 		private readonly IMessageSendCallback? sendCallback;
+		private readonly IMessageReceiveCallback? receiveCallback;
 
-		public TestConnector(IMessageSendCallback? sendCallback = null) {
+		public TestConnector(IMessageSendCallback? sendCallback = null, IMessageReceiveCallback? receiveCallback = null) {
 			this.sendCallback = sendCallback;
+			this.receiveCallback = receiveCallback;
 		}
 
 		protected override IChannelConnection CreateConnection(IChannel channel) => new TestConnection(this);
@@ -29,6 +31,19 @@ namespace Deveel.Messaging.Channels {
 				return await sendCallback.OnMessageSendingAsync(message);
 			} catch (ChannelException ex) {
 				return MessageResult.Fail(ex);
+			}
+		}
+
+		private async Task<MessageReceiveResult> ReceiveAsync(CancellationToken cancellationToken = default) {
+			if (receiveCallback == null)
+				throw new NotSupportedException("The connector does not support receiving messages.");
+
+			cancellationToken.ThrowIfCancellationRequested();
+
+			try {
+				return await receiveCallback.OnMessageReceivedAsync();
+			} catch (ChannelException ex) {
+				return MessageReceiveResult.Failed(ex);
 			}
 		}
 
@@ -57,6 +72,18 @@ namespace Deveel.Messaging.Channels {
 			}
 
 			public Task<MessageResult> SendAsync(IMessage message, CancellationToken cancellationToken = default) => connector.SendAsync(message, cancellationToken);
+		}
+
+		class TestReceiver : IChannelReceiver {
+			private readonly TestConnector connector;
+
+			public TestReceiver(TestConnector connector) {
+				this.connector = connector;
+			}
+
+			public bool IsReceiving => throw new NotImplementedException();
+
+			public Task<MessageReceiveResult> ReceiveAsync(CancellationToken cancellationToken = default) => connector.ReceiveAsync(cancellationToken);
 		}
 	}
 }

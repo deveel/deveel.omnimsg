@@ -33,11 +33,13 @@ namespace Deveel.Messaging {
 			}
 		}
 
+		/// <inheritdoc/>
 		public void Dispose() {
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
 
+		/// <inheritdoc/>
 		public IChannelConnection Connect(IChannel channel) {
 			lock (this) {
 				if (connections == null)

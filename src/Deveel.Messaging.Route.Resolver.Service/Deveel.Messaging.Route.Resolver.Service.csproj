@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Route Resolver Service</Title>
+    <Description>An implementation of the Route Resolver that uses the Route Service to resolve routes</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Route.Resolver\Deveel.Messaging.Route.Resolver.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Route.Service\Deveel.Messaging.Route.Service.csproj" />
+  </ItemGroup>
+
+</Project>

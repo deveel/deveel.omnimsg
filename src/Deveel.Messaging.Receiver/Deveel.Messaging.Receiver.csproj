@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Deveel OmniMessage Receiver</Title>
+    <Description>A service that allows receiving messages from a provider</Description>
+    <PackageTags>message;receiver;inbound;service;messaging</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deveel.Messaging.Channel.Connector\Deveel.Messaging.Channel.Connector.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Channel.Resolver\Deveel.Messaging.Channel.Resolver.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Logger\Deveel.Messaging.Logger.csproj" />
+    <ProjectReference Include="..\Deveel.Messaging.Route.Resolver\Deveel.Messaging.Route.Resolver.csproj" />
+  </ItemGroup>
+
+</Project>

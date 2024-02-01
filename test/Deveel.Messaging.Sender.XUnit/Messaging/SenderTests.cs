@@ -49,8 +49,9 @@ namespace Deveel.Messaging {
 			if (!ChannelFaker.ChannelTypes.Contains(TestChannelDefaults.Type))
 				ChannelFaker.ChannelTypes.Add(TestChannelDefaults.Type);
 
-			services.AddTestChannelResolver(new ChannelFaker(TenantId).Generate(123));
-			services.AddTestTerminalResolver(GetServerTerminals());
+			var testChannels = new ChannelFaker(TenantId).Generate(123);
+			services.AddTestChannelResolver(testChannels);
+			services.AddTestTerminalResolver(GetServerTerminals(testChannels));
 
 			services.AddTestMessageLogger((message, token) => {
 				outputHelper.WriteLine("Message: {0}", message.Id);
@@ -93,16 +94,41 @@ namespace Deveel.Messaging {
 
 		private readonly ITestOutputHelper outputHelper;
 
-		private IEnumerable<IServiceTerminal> GetServerTerminals() {
+		private IEnumerable<IServiceTerminal> GetServerTerminals(IList<Channel> testChannels) {
 			var faker = new Faker<ServiceTerminal>()
 				.RuleFor(x => x.Id, f => f.Random.Guid().ToString())
+				.RuleFor(x => x.Name, f => f.Random.Word())
 				.RuleFor(x => x.TenantId, TenantId)
 				.RuleFor(x => x.Type, f => f.Random.ListItem(TerminalTypes))
+				.RuleFor(x => x.Provider, (f, t) => RandomProvider(t))
+				.RuleFor(x => x.Roles, f => f.Random.Enum<TerminalRole>(TerminalRole.None))
 				.RuleFor(x => x.Address, (f, t) => f.Internet.Url())
-				.RuleFor(x => x.Status, f => f.Random.Enum<TerminalStatus>(TerminalStatus.Unknown));
-
+				.RuleFor(x => x.Status, f => f.Random.Enum<TerminalStatus>(TerminalStatus.Unknown))
+				.RuleFor(x => x.Channels, (f, t) => {
+					var supported = testChannels.Where(c => Supports(c, t)).ToList();
+					var count = f.Random.Int(0, supported.Count);
+					var channels = f.Random.ListItems(supported, count);
+					return channels.Select(c => new TerminalChannel(c.Id, c.Name)).ToList().OrNull(f);
+				});
 			return faker.Generate(23);
 		}
+
+		private string RandomProvider(ITerminal t)
+			=> t.Type switch {
+				KnownTerminalTypes.Email => "sendgrid",
+				KnownTerminalTypes.Phone => "twilio",
+				KnownTerminalTypes.Url => "deveel",
+				_ => throw new NotSupportedException()
+			};
+
+		private bool Supports(IChannel channel, ITerminal terminal)
+			=> channel.Type switch {
+				KnownChannelTypes.Email => terminal.Type == KnownTerminalTypes.Email,
+				KnownChannelTypes.Sms => terminal.Type == KnownTerminalTypes.Phone,
+				KnownChannelTypes.WhatsApp => terminal.Type == KnownTerminalTypes.Phone,
+				KnownChannelTypes.Web => terminal.Type == KnownTerminalTypes.Url,
+				_ => false
+			};
 
 		private IChannel RandomChannel(Func<IChannel, bool>? filter = null) {
 			var i = 0;
