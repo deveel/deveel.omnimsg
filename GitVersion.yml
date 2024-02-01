@@ -1,9 +1,2 @@
 mode: Mainline
 tag-prefix: '[vV]'
-branches:
-  issue:
-    regex: ^\d+-.*$
-    mode: ContinuousDeployment
-    tag: ''
-ignore:
-  sha: []
