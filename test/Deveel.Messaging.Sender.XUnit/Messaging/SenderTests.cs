@@ -176,10 +176,6 @@ namespace Deveel.Messaging {
 			Assert.NotNull(LastSentMessage);
 			Assert.Equal(message.Id, LastSentMessage!.Id);
 			Assert.Equal(message.TenantId, LastSentMessage!.TenantId);
-
-			Assert.NotNull(LastState);
-			Assert.Equal(MessageStatus.Sent, LastState.Status);
-			// TODO: Assert.Equal(1, LastState!.RetryAttempt);
 		}
 
 		[Fact]
@@ -286,10 +282,6 @@ namespace Deveel.Messaging {
 			Assert.Equal(4, AttemptCount);
 
 			Assert.NotNull(LastSentMessage);
-
-			Assert.NotNull(LastState);
-			Assert.Equal(MessageStatus.DeliveryFailed, LastState.Status);
-			// TODO: Assert.Equal(4, LastState!.RetryAttempt);
 		}
 	}
 }

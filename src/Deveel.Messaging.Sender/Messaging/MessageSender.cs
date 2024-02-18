@@ -47,7 +47,6 @@ namespace Deveel.Messaging {
 		private readonly IChannelConnectorResolver connectorResolver;
 		private readonly IMessageLogger messageLogger;
 		private readonly IChannelResolver channelResolver;
-		private readonly IMessageStateHandler? stateHandler;
 		private readonly ILogger logger;
 
 		/// <summary>
@@ -64,10 +63,6 @@ namespace Deveel.Messaging {
 		/// A service that resolves the connectors to the providers
 		/// of messaging services.
 		/// </param>
-		/// <param name="stateHandler">
-		/// An optional handler that is invoked when a local message 
-		/// state is available.
-		/// </param>
 		/// <param name="messageLogger">
 		/// A logger of the messages that are handled by the sender.
 		/// </param>
@@ -78,66 +73,13 @@ namespace Deveel.Messaging {
 			IOptions<MessageSenderOptions> options,
 			IChannelResolver channelResolver,
 			IChannelConnectorResolver connectorResolver,
-			IMessageStateHandler? stateHandler = null,
 			IMessageLogger? messageLogger = null,
 			ILogger<MessageSender>? logger = null) {
 			this.options = options.Value;
-			this.stateHandler = stateHandler;
 			this.channelResolver = channelResolver;
 			this.connectorResolver = connectorResolver;
 			this.messageLogger = messageLogger ?? NullMessageLogger.Instance;
 			this.logger = logger ?? NullLogger<MessageSender>.Instance;
-		}
-
-		/// <summary>
-		/// A callback invoked when a message state is handled.
-		/// </summary>
-		/// <param name="messageState">
-		/// The state of the message that was handled.
-		/// </param>
-		/// <param name="cancellationToken">
-		/// A cancellation token that can be used to cancel the operation.
-		/// </param>
-		/// <returns>
-		/// </returns>
-		protected virtual Task OnMessageStateAsync(IMessageState messageState, CancellationToken cancellationToken = default) {
-			return Task.CompletedTask;
-		}
-
-		private async Task HandleStateAsync(IMessageState state, CancellationToken cancellationToken = default) {
-			using var scope = logger.BeginScope("TenantId: {TenantId}", state.TenantId);
-
-			try {
-				await messageLogger.LogMessageStateAsync(state, cancellationToken);
-			} catch (Exception ex) {
-				throw new MessagingException(MessagingErrorCode.UnknownError, "An error occurred while logging the message state", ex);
-			}
-
-			if (options.StateHandler != null) {
-				await options.StateHandler(state);
-			}
-
-			if (stateHandler != null) {
-				try {
-					await stateHandler.HandleAsync(state, cancellationToken);
-				} catch (Exception ex) {
-					logger.WarnCallbackError(ex, state.MessageId, state.Status);
-				}
-			}
-
-			try {
-				await OnMessageStateAsync(state, cancellationToken);
-			} catch (Exception ex) {
-				// TODO: log this error as a warning ...
-			}
-		}
-
-		private Task OnMessageSentAsync(IMessage message, int attemptCount, CancellationToken cancellationToken) {
-			return HandleStateAsync(LocalMessageState.Sent(message.WithAttempt(attemptCount)), cancellationToken);
-		}
-
-		private Task OnFailedAsync(IMessage message, int attempt, IMessageError error, CancellationToken cancellationToken) {
-			return HandleStateAsync(LocalMessageState.DeliveryFailed(message.WithAttempt(attempt), error), cancellationToken);
 		}
 
 		/// <summary>
@@ -309,7 +251,7 @@ namespace Deveel.Messaging {
 				}, contextData, cancellationToken);
 
 			if (capture.Outcome == OutcomeType.Successful) {
-				await OnMessageSentAsync(message, message.Attempt() ?? 1, cancellationToken);
+				//await OnMessageSentAsync(message, message.Attempt() ?? 1, cancellationToken);
 				return capture.Result;
 			} else {
 				string? errorCode = null;
@@ -339,7 +281,7 @@ namespace Deveel.Messaging {
 				}
 
 				var msg = (IMessage)capture.Context["message"];
-				await OnFailedAsync(msg, msg.Attempt() ?? 1, ChannelMessageError.Transient(errorCode, errorMessage, innerError), cancellationToken);
+				// await OnFailedAsync(msg, msg.Attempt() ?? 1, ChannelMessageError.Transient(errorCode, errorMessage, innerError), cancellationToken);
 
 				return MessageResult.Fail(errorCode, errorMessage, innerError);
 			}
